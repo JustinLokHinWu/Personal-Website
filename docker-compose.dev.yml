@@ -1,6 +1,6 @@
 version: "3"
 services:
   web:
-    build: ./web
+    build: ./ACTGAN-Service
     ports: ['5000:5000']
-    volumes: ['./web:/app']
+    volumes: ['./ACTGAN-Service:/app']

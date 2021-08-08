@@ -1,0 +1,6 @@
+[submodule "ACTGAN-Service"]
+	path = ACTGAN-Service
+	url = https://github.com/JustinLokHinWu/ACTGAN-Service.git
+[submodule "personal-site-frontend"]
+	path = personal-site-frontend
+	url = https://github.com/JustinLokHinWu/personal-site-frontend.git

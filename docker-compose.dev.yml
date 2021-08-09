@@ -1,6 +1,16 @@
-version: "3"
+version: "1.0"
 services:
-  web:
+  actgan-service:
+    container_name: actgan-service
     build: ./ACTGAN-Service
     ports: ['5000:5000']
     volumes: ['./ACTGAN-Service:/app']
+  frontend:
+    container_name: personal-site-frontend
+    build: ./personal-site-frontend
+    ports: ['3000:3000']
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./personal-site-frontend:/app
+      - ./personal-site-frontend/node_modules:/app/node_modules

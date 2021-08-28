@@ -1,16 +1,46 @@
-version: "1.0"
+version: "3.9"
+networks:
+  kong-net:
 services:
   actgan-service:
     container_name: actgan-service
+    networks:
+      - kong-net
     build: ./ACTGAN-Service
-    ports: ['5000:5000']
-    volumes: ['./ACTGAN-Service:/app']
+    ports:
+      - 5000
+    volumes:
+      - ./ACTGAN-Service:/app
   frontend:
     container_name: personal-site-frontend
+    # networks:
+    #   - kong-net
     build: ./personal-site-frontend
-    ports: ['3000:3000']
+    ports:
+      - 3000:3000
     environment:
       CHOKIDAR_USEPOLLING: "true"
     volumes:
       - ./personal-site-frontend:/app
       - ./personal-site-frontend/node_modules:/app/node_modules
+  # Reference: https://github.com/redhwannacef/youtube-tutorials/blob/main/kong-gateway/docker-compose.yml
+  kong:
+    container_name: kong
+    image: kong:latest
+    volumes:
+      - ./kong.yml:/usr/local/kong/declarative/kong.yml
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/usr/local/kong/declarative/kong.yml
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:8444:8444"
+    networks:
+      - kong-net

@@ -1,0 +1,9 @@
+_format_version: "2.1"
+
+services:
+  - name: actgan-service
+    url: http://actgan-service:5000
+    routes:
+      - name: actgan-route
+        paths:
+          - /actgan

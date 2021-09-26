@@ -13,8 +13,6 @@ services:
       - ./ACTGAN-Service:/app
   frontend:
     container_name: personal-site-frontend
-    # networks:
-    #   - kong-net
     build: ./personal-site-frontend
     ports:
       - 3000:3000

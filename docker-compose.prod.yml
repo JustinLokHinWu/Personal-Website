@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  actgan-service:
+    build:
+      dockerfile: Dockerfile.prod
+  frontend:
+    build:
+      dockerfile: Dockerfile.prod

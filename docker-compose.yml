@@ -6,14 +6,18 @@ services:
     container_name: actgan-service
     networks:
       - kong-net
-    build: ./ACTGAN-Service
+    build: 
+      context: ./ACTGAN-Service
+      dockerfile: Dockerfile.dev
     ports:
       - 5000
     volumes:
       - ./ACTGAN-Service:/app
   frontend:
     container_name: personal-site-frontend
-    build: ./personal-site-frontend
+    build:
+      context: ./personal-site-frontend
+      dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
     environment:
